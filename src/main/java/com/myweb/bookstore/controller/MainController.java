@@ -34,16 +34,15 @@ public class MainController {
 
     @GetMapping(value = "/admin/home")
     public String home(HttpSession session) {
-        if(session.getAttribute("customer")!=null){
-            Customer customer = (Customer)session.getAttribute("customer");
-            for (Role r :customer.getRoleList()){
-                if(r.getId().equals(Long.parseLong(String.valueOf(1)))){
-                    return "admin/home";
-                }
+            Admin admin = (Admin) session.getAttribute("admin");
+            if(admin!=null){
+                    return "/admin/home";
             }
-        }
-        return "redirect:/trang-chu";
+            else {
+                return "redirect:/admin/login";
+            }
     }
+
 
     @GetMapping("/login")
     public String loginForm() {
@@ -60,9 +59,6 @@ public class MainController {
         Customer customer = customerService.findByEmail(email);
         System.out.println(customer);
         if(customer==null) {
-//            if(BCrypt.checkpw(password,customer.getPassword())){
-//                return "/trang-chu";
-//            }
             model.addAttribute("message", "Account does not exist");
             return  "login";
         }
@@ -71,9 +67,6 @@ public class MainController {
                 session.setAttribute("customer",customer);
                 for (Role c: customer.getRoleList()){
                     if(c.getId().equals(Long.parseLong(String.valueOf(1)))){
-                        return  "redirect:/admin/home";
-                    }
-                    else{
                         return "redirect:/trang-chu";
                     }
                 }
@@ -83,7 +76,7 @@ public class MainController {
                 return  "login";
             }
         }
-        return  "redirect:/admin/home";
+        return "redirect:/trang-chu";
     }
 
     @GetMapping(value = "/trang-chu")
@@ -96,11 +89,6 @@ public class MainController {
 
         }
         return findPaginated(1, model);
-//        List<Category> listcate = (List<Category>) categoryService.findAll();
-//        model.addAttribute("category",listcate);
-//        List<Product> list = (List<Product>) productService.findAll();
-//        model.addAttribute("product", list);
-//        return "web/index";
     }
 
     @GetMapping("/trang-chu/page/{pageNo}")
