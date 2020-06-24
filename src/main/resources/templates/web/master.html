@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Home | Bookshop Responsive Bootstrap4 Template</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Favicons -->
+    <link rel="shortcut icon" th:href="@{/web/images/favicon.ico}">
+    <link rel="apple-touch-icon" th:href="@{/web/images/icon.png}">
+    <!-- Google font (font-family: 'Roboto', sans-serif; Poppins ; Satisfy) -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,300i,400,400i,500,600,600i,700,700i,800" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link th:href="@{/admin/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
+    <!-- Stylesheets -->
+    <link rel="stylesheet" th:href="@{/web/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/web/css/plugins.css}">
+    <link rel="stylesheet" th:href="@{/web/style.css}">
+
+    <!-- Cusom css -->
+    <link rel="stylesheet" th:href="@{/web/css/custom.css}">
+
+    <!-- Modernizer js -->
+    <script th:src="@{/web/js/vendor/modernizr-3.5.0.min.js}"></script>
+</head>
+<body>
+<!-- Main wrapper -->
+<div class="wrapper" id="wrapper">
+    <!-- Header -->
+    <div th:replace="~{/web/shared/_header::header}"></div>
+    <!-- Start Slider area -->
+    <div th:replace="~{/web/shared/_slide::slide-bar}"></div>
+    <!-- End Slider area -->
+    <!-- body-->
+    <div layout:fragment="content"></div>
+    <!-- body -->
+    <!-- Footer Area -->
+    <div th:replace="~{/web/shared/_footer::footer}"></div>
+    <!-- //Footer Area -->
+</div>
+<!-- //Main wrapper -->
+
+<!-- JS Files -->
+<script th:src="@{/web/js/vendor/jquery-3.2.1.min.js}"></script>
+<script th:src="@{/web/js/popper.min.js}"></script>
+<script th:src="@{/web/js/bootstrap.min.js}"></script>
+<script th:src="@{/web/js/plugins.js}"></script>
+<script th:src="@{/web/js/active.js}"></script>
+</body>
+</html>

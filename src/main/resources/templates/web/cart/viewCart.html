@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="/web/master">
+<head>
+    <meta charset="UTF-8">
+    <title>View Cart</title>
+</head>
+<body>
+    <div layout:fragment="content">
+        <div class="cart-main-area section-padding--lg bg--white">
+            <form action="/trang-chu/updateCart" method="post">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 ol-lg-12">
+
+                            <div class="table-content wnro__table table-responsive">
+                                <div align="center"  th:if="${message}"><span style="font-size: 20px;font-family: 'Showcard Gothic';color: #fad42e">[[${message}]]</span></div>
+                                <table>
+                                    <thead>
+                                    <tr class="title-top">
+                                        <th class="product-thumbnail">Image</th>
+                                        <th class="product-name">Product</th>
+                                        <th class="product-price">Price</th>
+                                        <th class="product-quantity">Quantity</th>
+                                        <th class="product-subtotal">Total</th>
+                                        <th class="product-remove"></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="item:${cartdetail}">
+                                        <td class="product-thumbnail"><a href="#"><img th:src="@{'/bookimage/'+${item.product.image}}" alt="product img"></a></td>
+                                        <td class="product-name"><a th:href="@{'/trang-chu/product/'+${item.product.id}}">[[${item.product.name}]]</a></td>
+                                        <td class="product-price"><span class="amount">$ [[${item.product.price}]]</span></td>
+                                        <td class="product-quantity"><input type="number"  id="quantity" name="quantity"   th:value="${item.quantity}" /></td>
+                                        <td class="product-subtotal">$ [[${item.quantity * item.product.price}]]</td>
+                                        <td class="product-remove"><button style="border: none"><i class="fas fa-sync-alt"></i></button>
+                                            <button type="button" class="btn btn-primary" data-toggle="modal" th:data-target="${'#modal'+item.id}">
+                                                <i class="far fa-trash-alt"></i>
+                                            </button>
+<!--                                            <a th:href="@{'/trang-chu/deleteCart/'+${item.id}}"><i-->
+<!--                                                    class="fas fa-trash"></i></a>-->
+                                            <!-- Modal -->
+                                            <div class="modal fade" th:id="${'modal'+item.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Delete Product</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            are you sure?
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                            <button type="button" class="btn btn-secondary" ><a th:href="@{'/trang-chu/deleteCart/'+${item.id}}" >Delete</a></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 offset-lg-6">
+                        <div class="cartbox__total__area">
+                            <div class="cartbox-total d-flex justify-content-between">
+                            </div>
+                            <div class="cart__total__amount">
+                                <span>Total</span>
+                                <span>$[[${total}]]</span>
+                                <button>Check Out</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
