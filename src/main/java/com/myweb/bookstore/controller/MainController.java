@@ -2,8 +2,6 @@ package com.myweb.bookstore.controller;
 
 import com.myweb.bookstore.entity.*;
 import com.myweb.bookstore.repository.CartDetailReponsitory;
-import com.myweb.bookstore.repository.CartReponsitory;
-import com.myweb.bookstore.repository.ProductReponsitory;
 import com.myweb.bookstore.service.CategoryService;
 import com.myweb.bookstore.service.CustomerService;
 import com.myweb.bookstore.service.ProductService;
@@ -35,8 +33,16 @@ public class MainController {
     private CustomerService customerService;
 
     @GetMapping(value = "/admin/home")
-    public String home() {
-        return "admin/home";
+    public String home(HttpSession session) {
+        if(session.getAttribute("customer")!=null){
+            Customer customer = (Customer)session.getAttribute("customer");
+            for (Role r :customer.getRoleList()){
+                if(r.getId().equals(Long.parseLong(String.valueOf(1)))){
+                    return "admin/home";
+                }
+            }
+        }
+        return "redirect:/trang-chu";
     }
 
     @GetMapping("/login")
@@ -60,23 +66,23 @@ public class MainController {
             model.addAttribute("message", "Account does not exist");
             return  "login";
         }
-            else{
-                if (customer.getPassword().equals(password)){
-                    session.setAttribute("customer",customer);
-                    for (Role c: customer.getRoleList()){
-                        if(c.getId().equals(Long.parseLong(String.valueOf(1)))){
-                            return  "redirect:/admin/home";
-                        }
-                        else{
-                            return "redirect:/trang-chu";
-                        }
+        else{
+            if (customer.getPassword().equals(password)){
+                session.setAttribute("customer",customer);
+                for (Role c: customer.getRoleList()){
+                    if(c.getId().equals(Long.parseLong(String.valueOf(1)))){
+                        return  "redirect:/admin/home";
+                    }
+                    else{
+                        return "redirect:/trang-chu";
                     }
                 }
-                else {
-                    model.addAttribute("message", "Your password is incorrect");
-                    return  "login";
-                }
             }
+            else {
+                model.addAttribute("message", "Your password is incorrect");
+                return  "login";
+            }
+        }
         return  "redirect:/admin/home";
     }
 

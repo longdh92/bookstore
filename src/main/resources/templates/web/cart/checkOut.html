@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="/web/master">
+<head>
+    <meta charset="UTF-8">
+    <title>Check Out</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <section class="wn__checkout__area section-padding--lg bg__white">
+        <div class="container">
+            <div align="center" th:if="${message!=null}">
+                <span style="font-size: 20px;font-family: 'Showcard Gothic';color: #fad42e">[[${message}]]</span>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 col-12">
+                    <div class="customer_details">
+                        <h3>Billing details</h3>
+                        <div class="customar__field">
+                            <form th:object="${customer}" th:action="@{'/trang-chu/checkOut'}" method="post">
+                                <div class="input_box ">
+                                    <label>Name <span>*</span></label>
+                                    <input type="text" th:value="${customer.name}" readonly>
+                                </div>
+                                <div class="margin_between">
+                                    <div class="input_box space_between">
+                                        <label>Gender <span>*</span></label>
+                                        <input type="text" th:value="${customer.gender}">
+                                    </div>
+                                    <div class="input_box space_between">
+                                        <label>DOB<span>*</span></label>
+                                        <input type="text" th:value="${customer.DOB}">
+                                    </div>
+                                </div>
+                                <div class="input_box ">
+                                    <label>Phone <span>*</span></label>
+                                    <input type="text" th:value="${customer.phone}" readonly>
+                                </div>
+                                <div class="input_box ">
+                                    <label>Email <span>*</span></label>
+                                    <input type="email" th:value="${customer.email}" readonly>
+                                </div>
+                                <div class="input_box">
+                                    <label>Address <span>*</span></label>
+                                    <input type="text" placeholder="Street address" id="address" name="address">
+                                </div>
+                                <div>
+                                    <input type="submit" class="btn btn-primary" value="Check Out">
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-12 md-mt-40 sm-mt-40">
+                    <div class="wn__order__box">
+                        <h3 class="onder__title">Your order</h3>
+                        <ul class="order__total">
+                            <li>Product</li>
+                            <li>Total</li>
+                        </ul>
+                        <ul class="order_product" th:each="item:${cartdetail}">
+                            <li>[[${item.product.name}]] × [[${item.quantity}]]<span>$ [[${item.quantity * item.product.price}]]</span>
+                            </li>
+                        </ul>
+                        <ul class="shipping__method">
+                            <li>Total <span>$[[${total}]]</span></li>
+                        </ul>
+                    </div>
+                    <div id="accordion" class="checkout_accordion mt--30" role="tablist">
+                        <div class="payment">
+                            <div class="che__header" role="tab" id="headingOne">
+                                <a class="checkout__title" data-toggle="collapse" href="#collapseOne"
+                                   aria-expanded="true" aria-controls="collapseOne">
+                                    <span>Direct Bank Transfer</span>
+                                </a>
+                            </div>
+                            <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne"
+                                 data-parent="#accordion">
+                                <div class="payment-body">Make your payment directly into our bank account. Please use
+                                    your Order ID as the payment reference. Your order won’t be shipped until the funds
+                                    have cleared in our account.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="payment">
+                            <div class="che__header" role="tab" id="headingTwo">
+                                <a class="collapsed checkout__title" data-toggle="collapse" href="#collapseTwo"
+                                   aria-expanded="false" aria-controls="collapseTwo">
+                                    <span>Cheque Payment</span>
+                                </a>
+                            </div>
+                            <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo"
+                                 data-parent="#accordion">
+                                <div class="payment-body">Please send your cheque to Store Name, Store Street, Store
+                                    Town, Store State / County, Store Postcode.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="payment">
+                            <div class="che__header" role="tab" id="headingThree">
+                                <a class="collapsed checkout__title" data-toggle="collapse" href="#collapseThree"
+                                   aria-expanded="false" aria-controls="collapseThree">
+                                    <span>Cash on Delivery</span>
+                                </a>
+                            </div>
+                            <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree"
+                                 data-parent="#accordion">
+                                <div class="payment-body">Pay with cash upon delivery.</div>
+                            </div>
+                        </div>
+                        <div class="payment">
+                            <div class="che__header" role="tab" id="headingFour">
+                                <a class="collapsed checkout__title" data-toggle="collapse" href="#collapseFour"
+                                   aria-expanded="false" aria-controls="collapseFour">
+                                    <span>PayPal <img th:src="@{/web/images/icons/payment.png}"
+                                                      alt="payment images"> </span>
+                                </a>
+                            </div>
+                            <div id="collapseFour" class="collapse" role="tabpanel" aria-labelledby="headingFour"
+                                 data-parent="#accordion">
+                                <div class="payment-body">Pay with cash upon delivery.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+</div>
+</body>
+</html>

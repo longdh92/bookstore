@@ -13,6 +13,7 @@
     <div class="card-header">
         <i class="fas fa-table"></i>
         List Product
+        <span th:if="${message !=null}">[[${message}]]</span>
     </div>
     <div class="card-body">
         <a th:href="@{/admin/product/add}"><i class="fas fa-plus-circle"></i>Add New</a>
@@ -24,6 +25,7 @@
                         <tr align="center">
                             <th rowspan="1" colspan="1">ID</th>
                             <th rowspan="1" colspan="1">Category</th>
+                            <th rowspan="1" colspan="1">Brand</th>
                             <th rowspan="1" colspan="1">Name</th>
                             <th rowspan="1" colspan="1">Image</th>
                             <th rowspan="1" colspan="1">Quantity</th>
@@ -36,8 +38,9 @@
                         <tr role="row" class="odd" th:each="item : ${product}">
                             <td class="sorting_1" th:text="${item.id}"></td>
                             <td th:text="${item.category.name}"></td>
+                            <td th:text="${item.brand.name}"></td>
                             <td th:text="${item.name}"></td>
-                            <td><img th:src="@{'/bookimage/' + ${item.image}}"></td>
+                            <td><img width="130px" height="150px" th:src="@{'/bookimage/' + ${item.image}}"></td>
                             <td th:text="${item.quantity}"></td>
                             <td th:text="${item.price}"></td>
                             <td th:text="${item.manufacturedDate}"></td>
@@ -67,34 +70,6 @@
                                                                                           class="page-link">Next</a>
                         </li>
                     </ul>
-                    <!--                    <div th:if="${totalPages>1}">-->
-                    <!--                        <div class="row col-sm-10" >-->
-                    <!--                            <div class="col-sm-1">-->
-                    <!--                                <a th:if="${currentPage >1}" th:href="@{'/admin/product/list'}">First</a>-->
-                    <!--                                <span th:unless="${currentPage >1}">First</span>-->
-                    <!--                            </div>-->
-                    <!--                            <div class="col-sm-1">-->
-                    <!--                                <a th:if="${currentPage >1}" th:href="@{'/admin/product/list/page/' + ${currentPage -1}}">Prev</a>-->
-                    <!--                                <span th:unless="${currentPage >1}">Prev</span>-->
-                    <!--                            </div>-->
-                    <!--                            <div class="col-sm-1">-->
-                    <!--                                <span th:each="i:${#numbers.sequence(1,totalPages)}">-->
-                    <!--                                        <a th:if="${currentPage !=i}" th:href="@{'/admin/product/list/page/' +${i}}" >[[${i}]]</a>-->
-                    <!--                                        <span th:unless="${currentPage !=i}">[[${i}]]</span>-->
-                    <!--                                </span>-->
-                    <!--                            </div>-->
-                    <!--                            <div class="col-sm-1">-->
-                    <!--                                <a th:if="${currentPage <totalPages}" th:href="@{'/admin/product/list/page/' + ${currentPage +1}}">Next</a>-->
-                    <!--                                <span th:unless="${currentPage <totalPages}">Next</span>-->
-                    <!--                            </div>-->
-                    <!--                            <div class="col-sm-1">-->
-                    <!--                                <a th:if="${currentPage <totalPages}" th:href="@{'/admin/product/list/page/' + ${totalPages}}">Last</a>-->
-                    <!--                                <span th:unless="${currentPage <totalPages}">Last</span>-->
-                    <!--                            </div>-->
-                    <!--                        </div>-->
-                    <!--                    </div>-->
-
-
                 </div>
             </div>
 
@@ -108,7 +83,7 @@
 <script type="text/javascript">
     $(function () {
         window.pagObj = $('#pagination').twbsPagination({
-            totalPages: 35,
+            totalPages: [[${totalPages}]],
             visiblePages: 3,
             onPageClick: function (event, page) {
                 console.info(page + ' (from options)');

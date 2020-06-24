@@ -39,7 +39,7 @@ public class CustomerController {
         entity.setRegisterdate(Calendar.getInstance().getTime());
 //        entity.setPassword(passwordEncoder.encode(entity.getPassword()));
         Set<Role> roles = new HashSet<>();
-        Optional<Role> role = roleService.findById(Long.parseLong(String.valueOf(2)));
+        Optional<Role> role = roleService.findById(Long.parseLong(String.valueOf(1)));
         if (role.isPresent()){
             roles.add(role.get());
             entity.setRoleList(roles);
