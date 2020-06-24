@@ -35,7 +35,11 @@ public class MainController {
     private CustomerService customerService;
 
     @GetMapping(value = "/admin/home")
-    public String home() {
+    public String home(HttpSession session) {
+        Admin admin = (Admin) session.getAttribute("admin");
+        if(admin == null){
+            return "redirect:/admin/login";
+        }
         return "admin/home";
     }
 
@@ -64,12 +68,10 @@ public class MainController {
                 if (customer.getPassword().equals(password)){
                     session.setAttribute("customer",customer);
                     for (Role c: customer.getRoleList()){
-                        if(c.getId().equals(Long.parseLong(String.valueOf(1)))){
-                            return  "redirect:/admin/home";
-                        }
-                        else{
+                        if(c.getId().equals(Long.parseLong(String.valueOf(2)))){
                             return "redirect:/trang-chu";
                         }
+
                     }
                 }
                 else {
@@ -80,7 +82,7 @@ public class MainController {
         return  "redirect:/admin/home";
     }
 
-    @GetMapping(value = "/trang-chu")
+    @GetMapping(value = {"/trang-chu",""})
     public String index(ModelMap model,HttpSession session) {
         if(session.getAttribute("customer")!=null){
             Customer customer = (Customer) session.getAttribute("customer");
@@ -90,11 +92,6 @@ public class MainController {
 
         }
         return findPaginated(1, model);
-//        List<Category> listcate = (List<Category>) categoryService.findAll();
-//        model.addAttribute("category",listcate);
-//        List<Product> list = (List<Product>) productService.findAll();
-//        model.addAttribute("product", list);
-//        return "web/index";
     }
 
     @GetMapping("/trang-chu/page/{pageNo}")
