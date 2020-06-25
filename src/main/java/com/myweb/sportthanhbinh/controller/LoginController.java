@@ -1,7 +1,7 @@
 package com.myweb.sportthanhbinh.controller;
 
 import com.myweb.sportthanhbinh.entity.Admin;
-import com.myweb.sportthanhbinh.repository.AdminReponsitory;
+import com.myweb.sportthanhbinh.repository.AdminRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +14,7 @@ import java.util.Optional;
 @RequestMapping(value = "/admin/")
 public class LoginController {
     @Autowired
-    private AdminReponsitory adminReponsitory;
+    private AdminRepository adminRepository;
 
     @GetMapping(value = "login")
     public String list(Model model){
@@ -23,7 +23,7 @@ public class LoginController {
 
     @PostMapping(value = "authentic_login")
     public String login(Model model, @RequestParam("email")String email, @RequestParam("password")String password, HttpSession session){
-        Optional<Admin> optionalAdmin = adminReponsitory.findAdminByEmail(email);
+        Optional<Admin> optionalAdmin = adminRepository.findAdminByEmail(email);
         if(optionalAdmin.isPresent() && optionalAdmin.get().getPassword().equals(password) && optionalAdmin.get().isStatus()){
             session.setAttribute("admin",optionalAdmin.get());
             return "redirect:/admin/home";

@@ -40,6 +40,7 @@ public class MainController {
     public String home(HttpSession session) {
             Admin admin = (Admin) session.getAttribute("admin");
             if(admin!=null){
+                session.setAttribute("role",admin.getRole()==0?true:false);
                     return "/admin/home";
             }
             else {
@@ -83,7 +84,7 @@ public class MainController {
         return "redirect:/trang-chu";
     }
 
-    @GetMapping(value = "/trang-chu")
+    @GetMapping(value = {"/trang-chu",""})
     public String index(ModelMap model,HttpSession session) {
         if(session.getAttribute("customer")!=null){
             Customer customer = (Customer) session.getAttribute("customer");
