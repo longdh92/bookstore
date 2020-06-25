@@ -36,11 +36,11 @@
                             <td th:text="${item.total}"></td>
                             <td th:text="${item.address}"></td>
                             <td th:if="${item.status==1}" >Chờ xác nhận</td>
-                            <td th:if="${item.status==2}" >Đã xác nhận/td>
+                            <td th:if="${item.status==2}" >Đã xác nhận</td>
                             <td>
                                 <button type="button" class="btn btn-primary" data-toggle="modal"
                                         th:data-target="${'#modal'+item.id}">
-                                    <i class="fas fa-trash"></i>
+                                    <i class="far fa-check-circle"></i>
                                 </button>
                             </td>
 
@@ -62,8 +62,7 @@
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
                                             </button>
-                                            <a th:href="@{'/admin/brand/delete/'+${item.id}}" class="btn btn-danger"><i
-                                                    class="fas fa-trash"></i>Active</a>
+                                            <a th:href="@{'/admin/bill/update/'+${item.id}}" class="btn btn-primary"><i class="far fa-check-circle"></i></a>
                                         </div>
                                     </div>
                                 </div>
