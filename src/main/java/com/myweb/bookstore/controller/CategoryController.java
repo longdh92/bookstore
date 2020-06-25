@@ -33,6 +33,7 @@ public class CategoryController {
     public String edit(ModelMap model, @PathVariable(name = "id") Long id) {
         Optional<Category> opt = cateService.findById(id);
         if(opt.isPresent()){
+            
             model.addAttribute("category",opt.get());
         }
         else{
