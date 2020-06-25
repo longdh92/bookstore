@@ -42,6 +42,10 @@ import java.util.List;
         @Column(name = "status")
         private String status;
 
+        @ManyToOne(fetch = FetchType.LAZY)
+        @JoinColumn(name = "brand_id", referencedColumnName = "id")
+        private Brand brand;
+
         @OneToMany(mappedBy = "product")
         private List<CartDetail> cartDetailList = new ArrayList<>();
 
@@ -137,4 +141,12 @@ import java.util.List;
         public void setBillDetailList(List<BillDetail> billDetailList) {
             this.billDetailList = billDetailList;
         }
-}
+
+        public Brand getBrand() {
+            return brand;
+        }
+
+        public void setBrand(Brand brand) {
+            this.brand = brand;
+        }
+    }
