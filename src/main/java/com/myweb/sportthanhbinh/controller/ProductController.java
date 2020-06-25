@@ -55,7 +55,7 @@ public class ProductController {
 
     @PostMapping("/saveOrUpdate")
     public String saveOrUpdate(ModelMap model, Product product, @RequestParam("file") MultipartFile file) throws IOException {
-        Path path = Paths.get("D:\\java5\\bookstore1\\src\\main\\resources\\static\\bookimage/");
+        Path path = Paths.get("D:\\java5\\project\\src\\main\\resources\\static\\bookimage/");
         try {
             InputStream inputStream = file.getInputStream();
             Files.copy(inputStream, path.resolve(Objects.requireNonNull(file.getOriginalFilename())), StandardCopyOption.REPLACE_EXISTING);

@@ -50,10 +50,8 @@
                                 </div>
                             </form>
                         </div>
-
                     </div>
                 </div>
-
                 <div class="col-lg-6 col-12 md-mt-40 sm-mt-40">
                     <div class="wn__order__box">
                         <h3 class="onder__title">Your order</h3>
@@ -62,11 +60,11 @@
                             <li>Total</li>
                         </ul>
                         <ul class="order_product" th:each="item:${cartdetail}">
-                            <li>[[${item.product.name}]] × [[${item.quantity}]]<span>$ [[${item.quantity * item.product.price}]]</span>
+                            <li>[[${item.product.name}]] × [[${item.quantity}]]<span>[[${item.quantity * item.product.price}]] VND</span>
                             </li>
                         </ul>
                         <ul class="shipping__method">
-                            <li>Total <span>$[[${total}]]</span></li>
+                            <li>Total <span>[[${total}]] VND</span></li>
                         </ul>
                     </div>
                     <div id="accordion" class="checkout_accordion mt--30" role="tablist">
@@ -125,13 +123,10 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
-
     </section>
-
 </div>
 </body>
 </html>

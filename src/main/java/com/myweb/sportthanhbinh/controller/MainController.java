@@ -1,6 +1,7 @@
 package com.myweb.sportthanhbinh.controller;
 
 import com.myweb.sportthanhbinh.entity.*;
+import com.myweb.sportthanhbinh.repository.BrandReponsitory;
 import com.myweb.sportthanhbinh.repository.CartDetailReponsitory;
 import com.myweb.sportthanhbinh.service.CategoryService;
 import com.myweb.sportthanhbinh.service.CustomerService;
@@ -31,6 +32,9 @@ public class MainController {
 
     @Autowired
     private CustomerService customerService;
+
+    @Autowired
+    private BrandReponsitory brandReponsitory;
 
     @GetMapping(value = "/admin/home")
     public String home(HttpSession session) {
@@ -102,7 +106,8 @@ public class MainController {
         model.addAttribute("product", productList);
         List<Category> listcate = (List<Category>) categoryService.findAll();
         model.addAttribute("category", listcate);
-
+        List<Brand> listBrand = (List<Brand>) brandReponsitory.findAll();
+        model.addAttribute("brand",listBrand);
         return "web/index";
     }
 
