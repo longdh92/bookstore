@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="/admin/master">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div layout:fragment="content">
+        <div class="card-header">
+            <i class="fas fa-table"></i>
+            Data List Product
+        </div>
+        <a th:href="@{/admin/product/add}"><i class="fas fa-plus-circle"></i>Add New</a>
+        <div class="card-body">
+            <div class="table-responsive">
+                <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0"
+                                   role="grid" aria-describedby="dataTable_info" style="width: 100%;">
+                                <thead>
+                                <tr role="row">
+                                    <th class="sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                        colspan="1" aria-sort="ascending"
+                                        aria-label="Name: activate to sort column descending" style="width: 30px;">Id
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                                        aria-label="Position: activate to sort column ascending" style="width: 30px;">
+                                        Category
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                                        aria-label="Office: activate to sort column ascending" style="width: 30px;">
+                                        Brand
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                                        aria-label="Age: activate to sort column ascending" style="width: 67px;">Name
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                                        aria-label="Start date: activate to sort column ascending"
+                                        style="width: 133px;">Image
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                                        aria-label="Salary: activate to sort column ascending" style="width: 30px;">
+                                        Quantity
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                                        aria-label="Salary: activate to sort column ascending" style="width: 30px;">
+                                        Price
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                                        aria-label="Salary: activate to sort column ascending" style="width: 30px;">
+                                        Description
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                                        aria-label="Salary: activate to sort column ascending" style="width: 30px;">
+                                        Status
+                                    </th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr role="row" class="odd" th:each="item : ${product}">
+                                    <td class="sorting_1" th:text="${item.id}"></td>
+                                    <td th:text="${item.category.name}"></td>
+                                    <td th:text="${item.brand.name}"></td>
+                                    <td th:text="${item.name}"></td>
+                                    <td><img width="130px" height="150px" th:src="@{'/bookimage/' + ${item.image}}">
+                                    </td>
+                                    <td th:text="${item.quantity}"></td>
+                                    <td th:text="${item.price}"></td>
+                                    <td th:utext="${item.description}">
+
+                                    </td>
+                                    <td th:text="${item.status}"></td>
+                                    <td>
+                                        <a th:href="@{'/admin/product/edit/'+${item.id}}"><i class="far fa-edit"></i>Edit</a>|
+                                        <a th:href="@{'/admin/product/delete/'+${item.id}}"><i
+                                                class="fas fa-trash"></i>Delete</a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+</body>
+</html>
