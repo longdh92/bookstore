@@ -1,5 +1,7 @@
 package com.myweb.sportthanhbinh.entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -17,12 +19,16 @@ public class Bill {
     private Customer customer;
 
     @Column(name = "orderdate")
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date orderdate;
 
     @Column(name = "total")
     private Double total;
     @Column(name = "address")
     private String address;
+
+    @Column(name = "status")
+    private int status;
 
     @OneToMany(mappedBy = "bill")
     private List<BillDetail> billDetailList = new ArrayList<>();
@@ -76,6 +82,14 @@ public class Bill {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 }
 

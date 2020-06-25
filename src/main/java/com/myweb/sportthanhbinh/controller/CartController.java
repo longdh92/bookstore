@@ -164,6 +164,7 @@ public class CartController {
         bill.setTotal(total);
         bill.setAddress(address);
         billReponsitory.save(bill);
+        bill.setStatus(1);
         for (CartDetail c:list){
             BillDetail billDetail = new BillDetail();
             billDetail.setBill(bill);

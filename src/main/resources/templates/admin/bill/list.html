@@ -10,33 +10,44 @@
 <div layout:fragment="content">
     <div class="card-header">
         <i class="fas fa-table"></i>
-        List Brand</div>
+        List Bill
+    </div>
     <div class="card-body">
-        <a th:href="@{/admin/brand/add}"><i class="fas fa-plus-circle"></i>Add New</a>
         <div class="table-responsive">
             <div class="row">
                 <div class="col-sm-12">
-                    <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
-                        <tr  align="center"><th rowspan="1" colspan="1">ID</th>
+                    <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0"
+                           role="grid" aria-describedby="dataTable_info" style="width: 100%;">
+                        <tr align="center">
+                            <th rowspan="1" colspan="1">ID</th>
                             <th rowspan="1" colspan="1">Name</th>
+                            <th rowspan="1" colspan="1">Email</th>
+                            <th rowspan="1" colspan="1">Date</th>
+                            <th rowspan="1" colspan="1">Total</th>
+                            <th rowspan="1" colspan="1">Address</th>
                             <th rowspan="1" colspan="1">Status</th>
                             <th></th>
                         </tr>
-                        <tr role="row" class="odd" th:each="item : ${brand}">
+                        <tr role="row" class="odd" th:each="item : ${bill}">
                             <td class="sorting_1" th:text="${item.id}"></td>
-                            <td th:text="${item.name}"></td>
-                            <td th:text="${item.status}"></td>
+                            <td th:text="${item.customer.name}"></td>
+                            <td th:text="${item.customer.email}"></td>
+                            <td th:text="${item.orderdate}"></td>
+                            <td th:text="${item.total}"></td>
+                            <td th:text="${item.address}"></td>
+                            <td th:if="${item.status==1}" >Chờ xác nhận</td>
+                            <td th:if="${item.status==2}" >Đã xác nhận/td>
                             <td>
-                                <button type="button" class="btn btn-primary" data-toggle="modal" th:data-target="${'#modal'+item.id}">
+                                <button type="button" class="btn btn-primary" data-toggle="modal"
+                                        th:data-target="${'#modal'+item.id}">
                                     <i class="fas fa-trash"></i>
                                 </button>
-                                <a th:href="@{'/admin/brand/edit/'+${item.id}}" class="btn btn-primary"><i class="far fa-edit"></i></a>
-
                             </td>
 
 
                             <!-- Modal -->
-                            <div class="modal fade" th:id="${'modal'+item.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal fade" th:id="${'modal'+item.id}" tabindex="-1" role="dialog"
+                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -49,8 +60,10 @@
                                             are you sure?
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <a th:href="@{'/admin/brand/delete/'+${item.id}}" class="btn btn-danger"><i class="fas fa-trash"></i>Delete</a>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+                                            </button>
+                                            <a th:href="@{'/admin/brand/delete/'+${item.id}}" class="btn btn-danger"><i
+                                                    class="fas fa-trash"></i>Active</a>
                                         </div>
                                     </div>
                                 </div>
@@ -58,11 +71,11 @@
                         </tr>
                     </table>
 
-                </div></div>
+                </div>
+            </div>
         </div>
     </div>
+
 </div>
-
-
 </body>
 </html>
