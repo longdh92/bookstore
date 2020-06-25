@@ -57,12 +57,7 @@
                                     <div class="orderby__wrapper">
                                         <span>Sort By</span>
                                         <select class="shot__byselect">
-                                            <option>Default sorting</option>
-                                            <option>HeadPhone</option>
-                                            <option>Furniture</option>
-                                            <option>Jewellery</option>
-                                            <option>Handmade</option>
-                                            <option>Kids</option>
+                                            <option th:each="item:${brand}" th:value="${item.id}" th:utext="${item.name}"></option>
                                         </select>
                                     </div>
                                 </div>
