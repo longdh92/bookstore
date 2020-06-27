@@ -36,14 +36,10 @@
                                         <div class="price-box">
                                             <span th:utext="*{price +' VND'}"></span>
                                         </div>
-                                        <div class="product__overview">
-                                            <p th:utext="*{description}"></p>
-                                        </div>
                                         <div class="box-tocart d-flex">
-                                            <span>Qty</span>
-                                            <input id="qty" class="input-text qty" name="qty" min="1" value="1" title="Qty" type="number">
+                                            <span>Qty in stock :</span><span> [[${product.quantity}]]</span>
                                             <div class="addtocart__actions">
-                                                <button class="tocart" type="submit" title="Add to Cart">Add to Cart</button>
+                                                <a th:href="@{'/trang-chu/addtocart/'+${product.id} }" class="tocart" title="Add to Cart">Add to Cart</a>
                                             </div>
                                             <div class="product-addto-links clearfix">
                                                 <a class="wishlist" href="#"></a>

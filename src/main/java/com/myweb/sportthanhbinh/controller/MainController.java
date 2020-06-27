@@ -86,10 +86,15 @@ public class MainController {
 
     @GetMapping(value = {"/trang-chu",""})
     public String index(ModelMap model,HttpSession session) {
+        int result=0;
         if(session.getAttribute("customer")!=null){
             Customer customer = (Customer) session.getAttribute("customer");
             model.addAttribute("customername",customer.getName());
             List<CartDetail> list = cartDetailReponsitory.findByCustomer(customer.getId());
+            for (CartDetail c:list){
+                result+=c.getQuantity();
+            }
+            model.addAttribute("result",result);
             model.addAttribute("cartdetail",list );
 
         }
@@ -113,7 +118,18 @@ public class MainController {
     }
 
     @GetMapping("/trang-chu/product/{id}")
-    public String productDetail(ModelMap model, @PathVariable(name = "id") Long id) {
+    public String productDetail(HttpSession session,ModelMap model, @PathVariable(name = "id") Long id) {
+        int result=0;
+        if(session.getAttribute("customer")!=null) {
+            Customer customer = (Customer) session.getAttribute("customer");
+            model.addAttribute("customername", customer.getName());
+            List<CartDetail> list = cartDetailReponsitory.findByCustomer(customer.getId());
+            for (CartDetail c : list) {
+                result += c.getQuantity();
+            }
+            model.addAttribute("cartdetail", list);
+            model.addAttribute("result", result);
+        }
         Optional<Product> opt = productService.findById(id);
 
         if (opt.isPresent()) {
@@ -126,6 +142,17 @@ public class MainController {
 
     @GetMapping("/trang-chu/category/{id}")
     public String productByCategory(HttpSession session,ModelMap model, @PathVariable(name = "id") Long id) {
+        int result=0;
+        if(session.getAttribute("customer")!=null) {
+            Customer customer = (Customer) session.getAttribute("customer");
+            model.addAttribute("customername", customer.getName());
+            List<CartDetail> list = cartDetailReponsitory.findByCustomer(customer.getId());
+            for (CartDetail c : list) {
+                result += c.getQuantity();
+            }
+            model.addAttribute("cartdetail", list);
+            model.addAttribute("result", result);
+        }
         Optional<Category> opt = categoryService.findById(id);
         model.addAttribute("customer",session.getAttribute("customer"));
         if (opt.isPresent()) {

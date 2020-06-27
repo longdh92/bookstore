@@ -85,10 +85,15 @@ public class CartController {
 
     @GetMapping("/viewcart")
     public String viewCart(ModelMap model,HttpSession session){
+        int result=0;
         if(session.getAttribute("customer")!=null) {
             Customer customer = (Customer) session.getAttribute("customer");
             model.addAttribute("customername", customer.getName());
-            List<CartDetail> list = cartDetailReponsitory.findByCustomer(customer.getId());
+            List<CartDetail> list = cartDetailReponsitory.findByCustomer(customer.getId()); for (CartDetail c : list) {
+                result += c.getQuantity();
+            }
+            model.addAttribute("result", result);
+
             model.addAttribute("cartdetail", list);
             Double total = cartReponsitory.total(customer.getId());
             model.addAttribute("total", total);
@@ -127,11 +132,16 @@ public class CartController {
 
     @GetMapping("/checkOut")
     public String checkOutView(HttpSession session,ModelMap model,@ModelAttribute ("message")String message){
+        int result=0;
         if(session.getAttribute("customer")!=null){
             Customer customer = (Customer)session.getAttribute("customer");
             model.addAttribute("customername",customer.getName());
             model.addAttribute("customer",customer);
             List<CartDetail> list = cartDetailReponsitory.findByCustomer(customer.getId());
+            for (CartDetail c : list) {
+                result += c.getQuantity();
+            }
+            model.addAttribute("result", result);
             model.addAttribute("cartdetail", list);
             Double total = cartReponsitory.total(customer.getId());
             model.addAttribute("total", total);

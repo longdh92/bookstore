@@ -74,7 +74,7 @@
                                 <!-- Start Single Product -->
                                 <div class="product product__style--3 col-lg-4 col-md-4 col-sm-6 col-12" th:each="item : ${product}">
                                     <div class="product__thumb">
-                                        <a class="first__img" th:href="@{'/trang-chu/product/'+${item.id}}"><img th:src="@{'/bookimage/'+${item.image}}" alt="product image"></a>
+                                        <a class="first__img" th:href="@{'/trang-chu/product/'+${item.id}}"><img width="200" height="200" th:src="@{'/bookimage/'+${item.image}}" alt="product image"></a>
                                         <!--                                            <a class="second__img animation1" href="single-product.html"><img src="images/books/2.jpg" alt="product image"></a>-->
                                         <div class="hot__box">
                                             <span class="hot-label">HOT</span>
@@ -88,7 +88,7 @@
                                         <div class="action">
                                             <div class="actions_inner">
                                                 <ul class="add_to_links">
-                                                    <li><a class="wishlist" href="wishlist.html"><i class="bi bi-shopping-cart-full"></i></a></li>
+                                                    <li><a class="wishlist" th:href="@{'/trang-chu/addtocart/'+${item.getId()} }"><i class="bi bi-shopping-cart-full"></i></a></li>
                                                 </ul>
                                             </div>
                                         </div>
